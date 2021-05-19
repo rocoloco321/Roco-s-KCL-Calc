@@ -11,7 +11,7 @@ KCL flag calculator for Mario Kart Wii
 # Currently implemented KCL types
 -Road (0x00)
 
-#Selectable but not supported (yet) KCL types
+# Selectable but not supported (yet) KCL types
 - Wall (0x0C)
 - Off-road
 - Boostpanel
