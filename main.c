@@ -1,7 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void trickable (int *w)
+void trickable (int *w){ //W type
+	char combine[3];
+	int next = 0;
+	int temp;
+	int a;
+	int b;
+	int c;
+	while (next == 0){
+		printf("Is your surface trickable?\n0 = No\n1 = Yes\n"); //Trickable
+		scanf("%d", &temp);
+		switch (temp)
+		{
+			case 0: //No
+			a = 0;
+			next = 1;
+			break;
+			case 1: //yes
+			a = 1;
+			next = 1;
+			break;
+			default:
+				printf("Invalid option. Please try again\n");
+		}
+	}
+	next = 0;
+	while (next == 0){  // Driveable
+		printf("Is your surface driveable?\n0 = Yes\n1 = Not drivable. Forces a player to change direction which makes the player unable to drive on that surface.\n");
+		scanf("%d", &temp);
+		switch (temp)
+		{
+			case 0: //Yes
+			b = 0;
+			next = 1;
+			break;
+			case 1: //No
+			b = 1;
+			next = 1;
+			break;
+			default:
+				printf("Invalid option. Please try again\n");
+		}
+	}
+		next = 0;
+		while (next == 0){  // Bounce on Collision
+		printf("(Walls only. Input 0 if your surface is not a wall) Will your surface make you bounce when colliding with them?\n0 = Yes\n1 = No\n");
+		scanf("%d", &temp);
+		switch (temp)
+		{
+			case 0: //Yes
+			c = 0;
+			next = 1;
+			break;
+			case 1: //No
+			c = 1;
+			next = 1;
+			break;
+			default:
+				printf("Invalid option. Please try again\n");
+		}
+	}
+	sprintf(combine, "%d%d%d", c, b, a);
+	sscanf(combine, "%d", &*w);
+}
 
 void roadtype (int *z){
 	int temp;
@@ -50,11 +112,24 @@ void roadtype (int *z){
 
 }
 
+void shadoweff (int *y){ //Shadow Effect
+	int temp;
+	int next = 0;
+	while (next == 0){
+		printf("Pick your Shadow Effect ID (Must be a value between 0 and 999)\n");
+		scanf("%d", &temp);
+		if (temp <= 999){
+			*y = temp;
+			next = 1;
+		}else printf("Invalid value. Please try again.\n");
+	}
+}
+
 int main() {
 	char flag[2] = "00";
-	int w = 000;
-	char y[3] = "000";
-	int z = 0;
+	int w;
+	int y;
+	int z;
 	int temp;
 	int next = 0;
 
@@ -68,6 +143,8 @@ int main() {
 			case 0: //Road kcl was picked
 				strcpy(flag, "00");
 				roadtype(&z);
+				trickable(&w);
+				shadoweff(&y);
 				next = 1;
 				break;
 			case 1: //Off-Rad KCL was picked
@@ -87,6 +164,6 @@ int main() {
 		}
 	}	
 		
-	printf("Your KCL ID is:\na(0x%s,000,0,000,%d)",flag,z);
+	printf("Your KCL ID is:\na(0x%s,%d,0,%d,%d)",flag,w,y,z);
 	return 0;
 }
