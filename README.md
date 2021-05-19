@@ -3,7 +3,9 @@ KCL flag calculator for Mario Kart Wii
 
 # Usage
 1.- Run the program by either using CMD or by using the provided launcher in each release.
+
 2.- The program will guide you through the proccess of making your kcl flag. Only use numbers when asked, or else the program will have unintended behaviour.
+
 3.- Copy and paste the output into your collision .flag file
 
 # Currently implemented KCL types
