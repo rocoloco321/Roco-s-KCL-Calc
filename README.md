@@ -9,9 +9,7 @@ KCL flag calculator for Mario Kart Wii
 3.- Copy and paste the output into your collision .flag file
 
 # Currently implemented KCL types
--Road (0x00)
-
-# Selectable but not supported (yet) KCL types
+- Road (0x00)
 - Wall (0x0C)
 - Off-road
 - Boostpanel
