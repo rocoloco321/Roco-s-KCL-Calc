@@ -263,6 +263,98 @@ void wallc (int *z){
 	}
 }
 
+void jumppad (int *z){
+	int temp;
+		int roadnext = 0;
+	while (roadnext == 0){
+		printf("Select your surface type:\nHigher stages mean approximately longer air time and more distance.\n0 = Stage 2, used in GBA Bowser Castle 3\n1 = Stage 3, used in SNES Ghost Valley 2\n2 = Stage 1, used in GBA Shy Guy Beach\n3 = Stage 4, used in Mushroom Gorge (This flag causes the Off-Road Glitch.)\n4 = Stage 5, Bouncy mushroom ( SFX always work on the kinoko_bend object, but requires slot 1.3 for the course model KCL)\n5 = Stage 4, used in Chain Chomp Wheel\n6 = Stage 2, used in DS Yoshi Falls and Funky Stadium\n7 = Stage 4, unused\n" );
+		scanf("%d", &temp);
+		switch (temp)
+		{
+			case 0:
+			*z = 0;
+			roadnext = 1;
+			break;
+			case 1:
+			*z = 1;
+			roadnext = 1;
+			break;
+			case 2:
+			*z = 2;
+			roadnext = 1;
+			break;
+			case 3:
+			*z = 3;
+			roadnext = 1;
+			break;
+			case 4:
+			*z = 4;
+			roadnext = 1;
+			break;
+			case 5:
+			*z = 5;
+			roadnext = 1;
+			break;
+			case 6:
+			*z = 6;
+			roadnext = 1;
+			break;
+			case 7:
+			*z = 7;
+			roadnext = 1;
+			break;
+			default:
+				printf("Invalid option. Please try again\n");
+		}
+	}
+}
+
+void fallsolid (int *z){
+	int temp;
+		int roadnext = 0;
+	while (roadnext == 0){
+		printf("Select your surface type:\n0 = Sand\n1 = Underwater\n2 = Unknown\n3 = Ice\n4 = Dirt\n5 = Grass\n6 = Wood\n7 = Unknown\n" );
+		scanf("%d", &temp);
+		switch (temp)
+		{
+			case 0:
+			*z = 0;
+			roadnext = 1;
+			break;
+			case 1:
+			*z = 1;
+			roadnext = 1;
+			break;
+			case 2:
+			*z = 2;
+			roadnext = 1;
+			break;
+			case 3:
+			*z = 3;
+			roadnext = 1;
+			break;
+			case 4:
+			*z = 4;
+			roadnext = 1;
+			break;
+			case 5:
+			*z = 5;
+			roadnext = 1;
+			break;
+			case 6:
+			*z = 6;
+			roadnext = 1;
+			break;
+			case 7:
+			*z = 7;
+			roadnext = 1;
+			break;
+			default:
+				printf("Invalid option. Please try again\n");
+		}
+	}
+}
+
 int main() {
 	char flag[2] = "00";
 	int w;
@@ -274,7 +366,7 @@ int main() {
 	
 	while (next == 0)
 	{
-		printf("Please select your kcl flag:\n0 = road\n1 = off-road\n2 = Boost Panel\n3 = Wall (0x0C)\n");
+		printf("Please select your kcl flag:\n0 = Road\n1 = Off-road\n2 = Boost panel\n3 = Wall (0x0C)\n4 = Jump pad\n5 = Solid fall\n6 = Fall boundary\n7 = Cannon activator\n8 = Half-pipe ramp\n");
 		scanf("%d", &temp);
 		switch (temp)
 		{
@@ -300,6 +392,41 @@ int main() {
 				next = 1;
 				break;
 			case 3: //Wall kcl was picked
+				strcpy(flag, "0C");
+				next = 1;
+				wallc(&z);
+				trickable(&w);
+				shadoweff(&y);
+				break;
+			case 4: //Jump pad
+				strcpy(flag, "08");
+				next = 1;
+				jumppad(&z);
+				trickable(&w);
+				shadoweff(&y);
+				break;
+			case 5: //Solid Fall
+				strcpy(flag, "0A");
+				next = 1;
+				fallsolid(&z);
+				trickable(&w);
+				shadoweff(&y);
+				break;
+			case 6: //Fall boundary
+				strcpy(flag, "0C");
+				next = 1;
+				wallc(&z);
+				trickable(&w);
+				shadoweff(&y);
+				break;
+			case 7: //Cannon Activator
+				strcpy(flag, "0C");
+				next = 1;
+				wallc(&z);
+				trickable(&w);
+				shadoweff(&y);
+				break;
+			case 8: //Halfpipe ramp
 				strcpy(flag, "0C");
 				next = 1;
 				wallc(&z);
