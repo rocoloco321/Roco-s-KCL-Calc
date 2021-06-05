@@ -66,13 +66,17 @@ void trickable (int *w){ //W type
 }
 
 void shadoweff (int *y){ //Shadow Effect
-	int temp;
+	long temp;
+	int res;
+	long dec;
 	int next = 0;
 	while (next == 0){
-		printf("Pick your Shadow Effect ID (Must be a value between 0 and 999)\n");
-		scanf("%d", &temp);
-		if (temp <= 999){
-			*y = temp;
+		printf("Pick your Shadow Effect ID (Must be a value between 0 and 511)\n");
+		scanf("%ld", &temp);
+		if (temp <= 511){
+			dec = temp;
+			dectooct (&dec, &res);
+			*y = res;
 			next = 1;
 		}else printf("Invalid value. Please try again.\n");
 	}
@@ -355,6 +359,52 @@ void fallsolid (int *z){
 	}
 }
 
+void fallb (int *z){
+		int temp;
+		int roadnext = 0;
+	while (roadnext == 0){
+		printf("Select your fall type:\n0 = Air fall\n1 = Water, setting 1 refers to the index in KMP\n2 = Lava, setting 1 refers to the index in KMP\n3 = Icy water, (ice on respawn), setting 1 refers to the index in KMP(Requires slot 6.1.)\n4 = Lava, no GFX\n5 = Burning air fall\n6 = Quicksand (used in object quicksand)[In rare cases with complex KCL geometry, this variant can activate, but not cause the player to respawn, resulting in intangibility and no control of the character. If this occurs somewhere on your track, an additional fall boundary may be needed to catch the victim and make them respawn.]\n7 = Short fall\n");
+		scanf("%d", &temp);
+		switch (temp)
+		{
+			case 0:
+			*z = 0;
+			roadnext = 1;
+			break;
+			case 1:
+			*z = 1;
+			roadnext = 1;
+			break;
+			case 2:
+			*z = 2;
+			roadnext = 1;
+			break;
+			case 3:
+			*z = 3;
+			roadnext = 1;
+			break;
+			case 4:
+			*z = 4;
+			roadnext = 1;
+			break;
+			case 5:
+			*z = 5;
+			roadnext = 1;
+			break;
+			case 6:
+			*z = 6;
+			roadnext = 1;
+			break;
+			case 7:
+			*z = 7;
+			roadnext = 1;
+			break;
+			default:
+				printf("Invalid option. Please try again\n");
+		}
+	}
+}
+
 int main() {
 	char flag[2] = "00";
 	int w;
@@ -362,10 +412,15 @@ int main() {
 	int z;
 	int temp;
 	int next = 0;
+	int finish = 0;
+	int next2;
 
 	
+	while (finish == 0){
+	next = 0;  //failsafe for the loop
 	while (next == 0)
 	{
+		
 		printf("Please select your kcl flag:\n0 = Road\n1 = Off-road\n2 = Boost panel\n3 = Wall (0x0C)\n4 = Jump pad\n5 = Solid fall\n6 = Fall boundary\n7 = Cannon activator\n8 = Half-pipe ramp\n");
 		scanf("%d", &temp);
 		switch (temp)
@@ -413,11 +468,10 @@ int main() {
 				shadoweff(&y);
 				break;
 			case 6: //Fall boundary
-				strcpy(flag, "0C");
+				strcpy(flag, "10");
+				fallb(&z);
+				y = 0;
 				next = 1;
-				wallc(&z);
-				trickable(&w);
-				shadoweff(&y);
 				break;
 			case 7: //Cannon Activator
 				strcpy(flag, "0C");
@@ -438,6 +492,24 @@ int main() {
 		}
 	}	
 		
-	printf("Your KCL ID is:\na(0x%s,%d,0,%d,%d)",flag,w,y,z);
+	printf("Your KCL ID is:\na(0x%s,%d,0,%d,%d)\n",flag,w,y,z);
+		next2 = 0;
+while (next2 == 0){
+	printf("Do you want to start again?\n0 = Yes\n1 = No\n");
+	scanf("%d", &temp);
+	switch (temp)
+	{
+		case 0:
+			next2 = 1;
+			break;
+		case 1:
+			finish = 1;
+			next2 = 1;
+			break;
+		default:
+			printf("Invalid option. Please try again\n");
+	}
+}
+}
 	return 0;
 }
