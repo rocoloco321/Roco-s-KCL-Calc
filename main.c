@@ -66,17 +66,13 @@ void trickable (int *w){ //W type
 }
 
 void shadoweff (int *y){ //Shadow Effect
-	long temp;
-	int res;
-	long dec;
+	int temp;
 	int next = 0;
 	while (next == 0){
 		printf("Pick your Shadow Effect ID (Must be a value between 0 and 511)\n");
 		scanf("%ld", &temp);
 		if (temp <= 511){
-			dec = temp;
-			dectooct (&dec, &res);
-			*y = res;
+			*y = temp;
 			next = 1;
 		}else printf("Invalid value. Please try again.\n");
 	}
@@ -492,7 +488,7 @@ int main() {
 		}
 	}	
 		
-	printf("Your KCL ID is:\na(0x%s,%d,0,%d,%d)\n",flag,w,y,z);
+	printf("Your KCL ID is:\na(0x%s,%d,0,%o,%d)\n",flag,w,y,z);
 		next2 = 0;
 while (next2 == 0){
 	printf("Do you want to start again?\n0 = Yes\n1 = No\n");
